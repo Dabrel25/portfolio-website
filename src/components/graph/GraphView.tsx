@@ -75,6 +75,21 @@ export default function GraphView({ active = true }: { active?: boolean }) {
   const [cameraDebug, setCameraDebug] = useState<CameraDebugInfo | null>(null);
   const { selection, select, collapse, introRevealed, revealCategory, revealAll } = useGraphSelection(graph);
   const selectedNode = graph.nodes.find((n) => n.id === selection.selectedNodeId) ?? null;
+  // Every node connected to the selected one (either edge direction), for the
+  // detail card's connection tags. Deduped in case of parallel edges.
+  const selectedConnections = selectedNode
+    ? [
+        ...new Map(
+          graph.edges
+            .filter((e) => e.source === selectedNode.id || e.target === selectedNode.id)
+            .map((e) => (e.source === selectedNode.id ? e.target : e.source))
+            .flatMap((id) => {
+              const connected = graph.nodes.find((n) => n.id === id);
+              return connected ? [[id, connected] as const] : [];
+            })
+        ).values(),
+      ]
+    : [];
   const [chatStatus, setChatStatus] = useState<ChatStatus>("idle");
   const [turns, setTurns] = useState<ChatTurn[]>([]);
   const [chatOpen, setChatOpen] = useState(true);
@@ -423,7 +438,12 @@ export default function GraphView({ active = true }: { active?: boolean }) {
           )}
         </div>
 
-        <NodeDetailCard node={selectedNode} onClose={() => select(null)} />
+        <NodeDetailCard
+          node={selectedNode}
+          connections={selectedConnections}
+          onClose={() => select(null)}
+          onNodeClick={handleNodeLinkClick}
+        />
         {debugCoords && (
           <DebugCoordsOverlay graph={graph} selectedNodeId={selection.selectedNodeId} camera={cameraDebug} />
         )}

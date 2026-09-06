@@ -6,14 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "patch-package",
+    "neo4j:up": "docker compose -f docker-compose.neo4j.yml up -d",
+    "neo4j:down": "docker compose -f docker-compose.neo4j.yml down",
+    "neo4j:seed": "tsx scripts/seed-neo4j.ts"
   },
   "dependencies": {
     "@langchain/anthropic": "^1.5.8",
     "@langchain/core": "^1.2.9",
     "d3-force-3d": "^3.0.6",
     "motion": "^13.1.1",
-    "next": "16.2.12",
+    "next": "^16.3.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-force-graph-3d": "^1.29.1",
@@ -28,8 +32,11 @@
     "@types/react-dom": "^19",
     "@types/three": "^0.185.4",
     "eslint": "^9",
-    "eslint-config-next": "16.2.12",
+    "eslint-config-next": "^16.3.4",
+    "neo4j-driver": "^6.2.0",
+    "patch-package": "^8.0.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "typescript": "^5"
   }
 }

@@ -1,0 +1,22 @@
+# Local dev Neo4j mirroring the portfolio knowledge graph — a side tool for
+# exploring the graph in Neo4j Browser / Cypher, NOT part of the running site.
+#
+#   npm run neo4j:up      start it (browser at http://localhost:7474)
+#   npm run neo4j:seed    load/reload the site's graph into it
+#   npm run neo4j:down    stop it (data persists in the volume)
+#
+# Login: neo4j / portfolio-dev-password
+services:
+  neo4j:
+    image: neo4j:5-community
+    container_name: portfolio-neo4j
+    ports:
+      - "7474:7474" # HTTP browser UI
+      - "7687:7687" # Bolt protocol (driver)
+    environment:
+      NEO4J_AUTH: neo4j/portfolio-dev-password
+    volumes:
+      - portfolio-neo4j-data:/data
+
+volumes:
+  portfolio-neo4j-data:

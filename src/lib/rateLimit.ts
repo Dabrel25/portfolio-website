@@ -15,8 +15,17 @@ const perIpHourly = new Map<string, Counter>();
 const perIpDaily = new Map<string, Counter>();
 let globalDaily: Counter = { count: 0, resetAt: Date.now() + DAY_MS };
 
+// Without eviction, one entry per unique IP accumulates for the life of the
+// process — a crawler cycling addresses could grow these maps without bound.
+function pruneExpired(map: Map<string, Counter>, now: number): void {
+  for (const [key, counter] of map) {
+    if (now >= counter.resetAt) map.delete(key);
+  }
+}
+
 function checkAndIncrement(map: Map<string, Counter>, key: string, windowMs: number, limit: number): boolean {
   const now = Date.now();
+  if (map.size > 1000) pruneExpired(map, now);
   const existing = map.get(key);
 
   if (!existing || now >= existing.resetAt) {
