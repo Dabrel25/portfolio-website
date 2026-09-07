@@ -6,6 +6,7 @@ export const profile = {
   email: "darrelethanong@gmail.com",
   github: "https://github.com/Dabrel25",
   linkedin: "https://linkedin.com/in/darrelong",
+  photo: "/photos/Darrel_Portrait.jpg",
   summary:
     "AI engineer and hands-on builder who ships production GenAI systems end to end — from agentic LLM pipelines and custom diffusion-model training to cloud data architecture on Databricks and AWS. Comfortable owning a problem from prototype to deployment, optimizing for cost and reliability, and working across Python, Go, and JavaScript. Driven by building working solutions fast and learning new technologies by doing.",
 };
@@ -163,5 +164,10 @@ export const awards: { title: string; detail: string }[] = [
     title: "ASCEND Awards Excellence Awardee (2024–2025)",
     detail:
       "Best College Project Thesis, Ateneo Socio-Civic Engagement for National Development.",
+  },
+  {
+    title: "Honorable Mention",
+    detail:
+      "Graduated with Honorable Mention — B.S. Management Information Systems, Ateneo de Manila University.",
   },
 ];
