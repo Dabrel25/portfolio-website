@@ -177,8 +177,8 @@ export const projectNodes: GraphNode[] = [
     category: "project",
     label: "Portfolio Website",
     description:
-      "The site you're on right now — a personal knowledge graph. Instead of a static page, my work, education, and life are rendered as an explorable 3D graph (Next.js, React, Three.js) with physics-driven layout and choreographed camera framing. A Claude-powered chat guide (LangChain) answers questions about me, grounded in this same graph data, and navigates the graph to whatever it's talking about. Designed and built end to end.",
-    meta: { stack: ["Next.js", "React", "TypeScript", "Three.js", "LangChain", "Claude API", "Vercel"] },
+      "The site you're on right now — a personal knowledge graph. Instead of a static page, my work, education, and life are rendered as an explorable 3D graph (Next.js, React, Three.js) with physics-driven layout and choreographed camera framing. A Claude-powered chat guide (LangChain) answers questions about me and navigates the graph to whatever it's talking about — grounded in this same graph, which is mirrored into Neo4j and queried live with Cypher at request time. Designed and built end to end.",
+    meta: { stack: ["Next.js", "React", "TypeScript", "Three.js", "LangChain", "Claude API", "Neo4j", "Vercel"] },
     images: ["/photos/Portfolio_Website.png"],
   },
 ];
@@ -336,6 +336,7 @@ export const contentEdges: GraphEdge[] = [
     "skill-html-css",
     "skill-claude-api",
     "skill-langchain",
+    "skill-neo4j",
     "skill-vercel",
   ]),
 

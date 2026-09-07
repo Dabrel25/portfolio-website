@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Nav from "./Nav";
 import Sidebar from "./Sidebar";
+import PhotoLightboxProvider from "./PhotoLightboxProvider";
 import Hero from "./Hero";
 import Experience from "./Experience";
 import Projects from "./Projects";
@@ -28,19 +29,21 @@ export default function ResumeContent() {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col bg-[#f5f4ed]">
-      {fromGraph ? <Sidebar /> : <Nav />}
-      <Hero />
-      <div className="divide-y divide-[#e5e3d8]">
-        <Experience />
-        <Projects />
-        <Education />
-        <Skills />
-        <Hobbies />
-        <Community />
-        <Awards />
+    <PhotoLightboxProvider>
+      <div className="flex flex-1 flex-col bg-[#f5f4ed]">
+        {fromGraph ? <Sidebar /> : <Nav />}
+        <Hero />
+        <div className="divide-y divide-[#e5e3d8]">
+          <Experience />
+          <Projects />
+          <Education />
+          <Skills />
+          <Hobbies />
+          <Community />
+          <Awards />
+        </div>
+        <Contact />
       </div>
-      <Contact />
-    </div>
+    </PhotoLightboxProvider>
   );
 }

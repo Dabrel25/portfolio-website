@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { profile } from "@/data/resume";
-import PhotoPlaceholder from "./PhotoPlaceholder";
+import NodePhoto from "./NodePhoto";
 
 export default function Hero() {
   return (
@@ -38,7 +38,7 @@ export default function Hero() {
         </motion.div>
 
         <div className="w-40 sm:w-48">
-          <PhotoPlaceholder caption={`Add photo: ${profile.name}`} aspect="portrait" accentColor="#d64545" />
+          <NodePhoto src={profile.photo} caption={`Add photo: ${profile.name}`} aspect="portrait" accentColor="#d64545" />
         </div>
       </div>
     </header>
