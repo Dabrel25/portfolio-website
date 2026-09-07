@@ -22,9 +22,9 @@ const SWOOSH_TRANSITION = { duration: 1.1, ease: [0.22, 1, 0.36, 1] as const };
 const DEFAULT_DOCK_WIDTH = 380;
 const MIN_DOCK_WIDTH = 280;
 const MAX_DOCK_WIDTH = 560;
-const CENTERED_WIDTH = 480;
+const CENTERED_WIDTH = 780;
 const INVITE_TYPING_HEIGHT = 130;
-const INVITE_HEIGHT = 220;
+const INVITE_HEIGHT = 240;
 const CARD_HEIGHT = 320;
 const ENTRANCE_SETTLE_MS = 1000;
 // Ring-to-ring delay for the invite headline's slow center-outward "wipe"
@@ -43,6 +43,8 @@ const RESUME_SECTION_LINKS = [
   { section: "projects", label: "Projects" },
   { section: "education", label: "Education" },
   { section: "skills", label: "Skills" },
+  { section: "hobbies", label: "Hobbies" },
+  { section: "community", label: "Community" },
   { section: "awards", label: "Awards" },
   { section: "contact", label: "Contact" },
 ];
@@ -227,7 +229,7 @@ export default function GraphView({ active = true }: { active?: boolean }) {
     navigateToNode(nodeId);
   };
 
-  const handleAsk = async (question: string) => {
+  const handleAsk = async (question: string, deepSearch = false) => {
     setChatStatus("thinking");
     setTurns((prev) => [...prev, { question, answer: null }]);
     if (!docked) setDocking(true);
@@ -236,7 +238,7 @@ export default function GraphView({ active = true }: { active?: boolean }) {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question, deepSearch }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Request failed");
@@ -303,7 +305,7 @@ export default function GraphView({ active = true }: { active?: boolean }) {
         width: CENTERED_WIDTH,
         height: centeredHeight,
         x: (viewport.width - CENTERED_WIDTH) / 2,
-        y: viewport.height * 0.9 - centeredHeight,
+        y: viewport.height * 0.96 - centeredHeight,
         borderRadius: 16,
       };
 

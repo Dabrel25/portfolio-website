@@ -15,7 +15,7 @@ export default function ChatPanel({
 }: {
   status: ChatStatus;
   turns: ChatTurn[];
-  onAsk: (question: string) => void;
+  onAsk: (question: string, deepSearch: boolean) => void;
   onNodeClick?: (nodeId: string) => void;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);

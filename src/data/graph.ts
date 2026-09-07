@@ -1,4 +1,4 @@
-import { hobbyNodes, communityNodes, projectNodes, contentEdges } from "./graph-content";
+import { hobbyNodes, communityNodes, projectNodes, learningNodes, contentEdges } from "./graph-content";
 
 export type NodeLayer = "identity" | "hobby" | "professional" | "community";
 
@@ -20,6 +20,10 @@ export type GraphNode = {
   description?: string;
   highlights?: string[];
   images?: string[];
+  /** Where the image carousel sits on the detail card relative to the text.
+   * Default "top"; "bottom" suits writeups that lead into the images (e.g.
+   * Learning's "here are some of the worlds I explore through:"). */
+  imagePlacement?: "top" | "bottom";
   meta?: Record<string, string | string[]>;
   link?: string;
 };
@@ -49,7 +53,7 @@ export function buildGraph(
   professionalNodes: GraphNode[],
   professionalEdges: GraphEdge[]
 ): Graph {
-  const nodes = [centerNode, ...hobbyNodes, ...communityNodes, ...projectNodes, ...professionalNodes];
+  const nodes = [centerNode, ...hobbyNodes, ...communityNodes, ...projectNodes, ...learningNodes, ...professionalNodes];
   const edges = [...contentEdges, ...professionalEdges];
 
   // Every skill needs at least one path back to "me" — skills already linked

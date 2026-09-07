@@ -23,7 +23,7 @@ export const hobbyNodes: GraphNode[] = [
     label: "Basketball",
     description:
       "I didn't grow up loving basketball. It was forced on me as a kid because I was tall, and the sport felt brutish, even simplistic — like it all came down to who had more talent and could physically overpower the other. Without real passion behind it, I struggled to improve. I couldn't see the results I wanted, and I wasn't willing to put in the time for something I didn't love. But when I got the chance to play again years later, something had changed. I found myself loving, even obsessing over, the game: the analysis, the strategy, the way it rewards thinking and skill as much as talent. I was hooked by the beauty of sports — the coalescence of strategy, instinct, and execution at the highest level. I haven't looked back since.",
-    images: ["/nodes/hobby-basketball-1.svg", "/nodes/hobby-basketball-2.svg"],
+    images: ["/photos/Basketball_1.jpg"],
   },
   {
     id: "hobby-learning",
@@ -32,7 +32,8 @@ export const hobbyNodes: GraphNode[] = [
     label: "Learning",
     description:
       "I know it can sound somewhat pretentious and cliché, but I genuinely do love learning about anything and everything. I grew up on YouTube videos from Crash Course, Kurzgesagt, and Veritasium. To me, learning feels like gaining a new perspective — like I've taken a step into a new world I can infinitely explore. Here are some of the worlds I explore through:",
-    images: ["/nodes/hobby-learning-1.svg", "/nodes/hobby-learning-2.svg"],
+    images: ["/photos/LEARNING_1.png", "/photos/Learning_2.jpeg", "/photos/Learning_3.jpg", "/photos/Learning_4.png"],
+    imagePlacement: "bottom",
   },
   {
     id: "hobby-games",
@@ -42,7 +43,7 @@ export const hobbyNodes: GraphNode[] = [
     description:
       "I love playing games and the sense of wonder they bring. Games are a beautiful way for people to express their creativity, and they involve one of the best ways to exercise our mental muscle.",
     meta: { favorites: ["Breath of the Wild", "Hades", "Jeopardy"] },
-    images: ["/nodes/hobby-games-1.svg", "/nodes/hobby-games-2.svg"],
+    images: ["/photos/Games_1.jpg"],
   },
 ];
 
@@ -65,7 +66,7 @@ export const communityNodes: GraphNode[] = [
         "Officer — Finance",
       ],
     },
-    images: ["/nodes/community-misa-1.svg", "/nodes/community-misa-2.svg"],
+    images: ["/photos/Ateneo_MISA_1.png", "/photos/Ateneo_MISA_2.jpg"],
   },
   {
     id: "community-barefoot",
@@ -74,7 +75,7 @@ export const communityNodes: GraphNode[] = [
     label: "Barefoot",
     description:
       "Here at Barefoot I met so many inspiring people. Our advocacy, geared toward children in rural communities, introduced me to people who thrived in the direst of situations. While I haven't had the chance to be as involved recently, I continue to want to empower and serve the children I've had the privilege to meet here.",
-    images: ["/nodes/community-barefoot-1.svg", "/nodes/community-barefoot-2.svg"],
+    images: ["/photos/barefoot_photo_1.jpg", "/photos/barefoot_photo_2.avif"],
   },
 ];
 
@@ -99,7 +100,7 @@ export const projectNodes: GraphNode[] = [
       award: "ASCEND Awards Excellence Awardee — Best College Project Thesis (2024–2025)",
       partners: ["DepEd — SDO Batangas City", "Department of Health"],
     },
-    images: ["/nodes/project-iclinicsys-1.svg", "/nodes/project-iclinicsys-2.svg"],
+    images: ["/photos/Ascend_award_1.jpeg", "/photos/Ascend_award_2.jpeg"],
   },
   {
     id: "project-stock-sage",
@@ -122,8 +123,8 @@ export const projectNodes: GraphNode[] = [
     category: "project",
     label: "Agent_REED",
     description:
-      "A command-line coding agent in the spirit of Claude Code, built from scratch in Python on Gemini. REED reads a codebase, plans changes, and carries them out through a tool-use loop — listing and reading files, writing edits, and executing Python — demonstrating the full agentic pattern end to end: structured tool schemas, iterative plan-act-observe cycles, and guardrails around what the agent is allowed to touch and run. Recognized as an Outstanding Coursework Project at Ateneo.",
-    meta: { recognition: "Outstanding Coursework Project", stack: ["Python", "Gemini"] },
+      "A command-line coding agent in the spirit of Claude Code, built from scratch in Python on Gemini. REED reads a codebase, plans changes, and carries them out through a tool-use loop — listing and reading files, writing edits, and executing Python — demonstrating the full agentic pattern end to end: structured tool schemas, iterative plan-act-observe cycles, and guardrails around what the agent is allowed to touch and run. Recognized as an Outstanding Coursework Project.",
+    meta: { recognition: "Outstanding Coursework Project", stack: ["Python", "Gemini", "Boot.dev"] },
     link: "https://github.com/Dabrel25/Agent_REED",
     images: ["/nodes/project-agent-reed-1.svg", "/nodes/project-agent-reed-2.svg"],
   },
@@ -212,6 +213,22 @@ export const extraSkillNodes: GraphNode[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Learning platforms (hand-authored education nodes beyond the resume)
+// ---------------------------------------------------------------------------
+
+export const learningNodes: GraphNode[] = [
+  {
+    id: "education-boot-dev",
+    layer: "professional",
+    category: "education",
+    label: "Boot.dev",
+    description:
+      "An online platform for learning backend development through hands-on courses and projects.",
+    link: "https://www.boot.dev",
+  },
+];
+
+// ---------------------------------------------------------------------------
 // Overrides for resume-derived job/education nodes
 // ---------------------------------------------------------------------------
 
@@ -228,7 +245,7 @@ export const professionalOverrides: Record<string, Partial<GraphNode>> = {
   "job-it-group-inc": {
     description:
       "A first taste of enterprise systems — optimizing financial workflows in Oracle NetSuite and building real-time analytics for performance reporting.",
-    images: ["/nodes/job-it-group-inc-1.svg", "/nodes/job-it-group-inc-2.svg"],
+    images: ["/photos/itg_1.png"],
   },
   "education-ateneo-de-manila-university": {
     description:
@@ -238,13 +255,10 @@ export const professionalOverrides: Record<string, Partial<GraphNode>> = {
       location: "Quezon City",
       dates: "08/2021 – 06/2025",
     },
-    images: [
-      "/nodes/education-ateneo-de-manila-university-1.svg",
-      "/nodes/education-ateneo-de-manila-university-2.svg",
-    ],
+    images: ["/photos/Ateneo_Uni_1.png"],
   },
   "education-waseda-university": {
-    images: ["/nodes/education-waseda-university-1.svg", "/nodes/education-waseda-university-2.svg"],
+    images: ["/photos/Waseda_1.png"],
   },
 };
 
@@ -301,6 +315,8 @@ export const contentEdges: GraphEdge[] = [
     "skill-llm-orchestration-agentic-ai",
     "skill-prompt-engineering",
   ]),
+  // projects → learning platforms
+  { source: "project-agent-reed", target: "education-boot-dev", label: "coursework from" },
   ...uses("project-adverse-media-screening-re-architecture", [
     "skill-python",
     "skill-llm-orchestration-agentic-ai",

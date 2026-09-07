@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { graph } from "@/data/graph-full";
+import ImageLightbox from "@/components/ImageLightbox";
 
 export type ChatTurn = {
   question: string;
@@ -20,6 +22,8 @@ export default function ChatMessage({
   turn: ChatTurn;
   onNodeClick?: (nodeId: string) => void;
 }) {
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+
   return (
     <div className="space-y-2">
       <div className="flex justify-end">
@@ -88,16 +92,30 @@ export default function ChatMessage({
             {!!turn.images?.length && (
               <div className="mt-3 grid grid-cols-2 gap-2">
                 {turn.images.map((src) => (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  // Same contain-over-blurred-fill treatment as ImageCarousel:
+                  // the photo set mixes portraits, squares, and wide banners,
+                  // so a square object-cover crop butchers most of them.
+                  <button
                     key={src}
-                    src={src}
-                    alt=""
-                    className="aspect-square w-full rounded-lg object-cover"
-                  />
+                    type="button"
+                    onClick={() => setLightboxSrc(src)}
+                    aria-label="View full-size image"
+                    className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-lg bg-[#f0eee5]"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src}
+                      alt=""
+                      aria-hidden
+                      className="absolute inset-0 h-full w-full scale-110 object-cover opacity-50 blur-lg"
+                    />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt="" className="relative h-full w-full object-contain" />
+                  </button>
                 ))}
               </div>
             )}
+            <ImageLightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />
           </div>
         </div>
       )}

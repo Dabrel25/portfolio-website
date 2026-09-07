@@ -25,7 +25,7 @@ export const experience: Job[] = [
     location: "Metro Manila, Philippines",
     role: "AI Engineer",
     dates: "09/2025 – Present",
-    images: ["/experience/gotyme-1.svg", "/experience/gotyme-2.svg", "/experience/gotyme-3.svg"],
+    images: ["/photos/gotyme_image_1.jpeg", "/photos/GoTyme_image_2.webp"],
     highlights: [
       "Re-architected the bank's adverse-media screening system (AML compliance), replacing a 9-call-per-customer LLM design with a hybrid single-search plus a local Python classifier — cutting API calls ~89% and per-customer cost ~76% while reducing false positives ~76% and maintaining ~95% recall.",
       "Evaluated and ruled out alternative LLM backends (Gemini, LiteLLM proxy, Databricks serving) against concrete compliance and security constraints, documenting trade-offs to guide the architecture decision.",

@@ -9,6 +9,8 @@ import Experience from "./Experience";
 import Projects from "./Projects";
 import Education from "./Education";
 import Skills from "./Skills";
+import Hobbies from "./Hobbies";
+import Community from "./Community";
 import Awards from "./Awards";
 import Contact from "./Contact";
 
@@ -34,6 +36,8 @@ export default function ResumeContent() {
         <Projects />
         <Education />
         <Skills />
+        <Hobbies />
+        <Community />
         <Awards />
       </div>
       <Contact />

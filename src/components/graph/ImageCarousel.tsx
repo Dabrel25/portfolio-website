@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ImageLightbox from "@/components/ImageLightbox";
 
 const ASPECT_CLASSES = {
   square: "aspect-square",
@@ -10,12 +11,13 @@ const ASPECT_CLASSES = {
 
 export default function ImageCarousel({
   images,
-  aspect = "ultrawide",
+  aspect = "video",
 }: {
   images: string[];
   aspect?: keyof typeof ASPECT_CLASSES;
 }) {
   const [index, setIndex] = useState(0);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
   if (images.length === 0) return null;
 
@@ -25,8 +27,28 @@ export default function ImageCarousel({
 
   return (
     <div className={`relative w-full overflow-hidden rounded-lg bg-[#f0eee5] ${ASPECT_CLASSES[aspect]}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- data-driven, non-static image set */}
-      <img src={images[index]} alt="" className="h-full w-full object-cover" />
+      {/* The photo set mixes portraits, squares, and wide banners, so a fixed-
+          aspect object-cover crop butchers most of them. Instead the full
+          image is object-contain'd (never cropped), and a blurred, oversized
+          copy of the same image fills whatever the contain fit leaves empty —
+          reads as a deliberate frame rather than letterbox bars, at every
+          aspect ratio. */}
+      <button
+        type="button"
+        onClick={() => setLightboxSrc(images[index])}
+        aria-label="View full-size image"
+        className="relative block h-full w-full cursor-zoom-in"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element -- data-driven, non-static image set */}
+        <img
+          src={images[index]}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-50 blur-lg"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element -- data-driven, non-static image set */}
+        <img src={images[index]} alt="" className="relative h-full w-full object-contain" />
+      </button>
       {images.length > 1 && (
         <>
           <button
@@ -58,6 +80,7 @@ export default function ImageCarousel({
           </div>
         </>
       )}
+      <ImageLightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />
     </div>
   );
 }

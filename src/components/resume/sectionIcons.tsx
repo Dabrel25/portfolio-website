@@ -32,6 +32,22 @@ export const SECTION_ICONS: Record<string, React.ReactNode> = {
       <path d="M8 1.5L9.3 5.8L13.5 5.8L10.1 8.3L11.4 12.5L8 10L4.6 12.5L5.9 8.3L2.5 5.8L6.7 5.8L8 1.5Z" />
     </svg>
   ),
+  hobbies: (
+    <svg {...ICON_PROPS}>
+      <circle cx="8" cy="8" r="6" />
+      <path d="M8 2C6.3 4 5.5 6 5.5 8C5.5 10 6.3 12 8 14" />
+      <path d="M8 2C9.7 4 10.5 6 10.5 8C10.5 10 9.7 12 8 14" />
+      <path d="M2 8H14" />
+    </svg>
+  ),
+  community: (
+    <svg {...ICON_PROPS}>
+      <circle cx="5.5" cy="6" r="2" />
+      <circle cx="10.5" cy="6" r="2" />
+      <path d="M1.5 13C1.5 10.8 3.3 9.5 5.5 9.5C6.4 9.5 7.2 9.7 7.8 10.1" />
+      <path d="M8.2 10.1C8.8 9.7 9.6 9.5 10.5 9.5C12.7 9.5 14.5 10.8 14.5 13" />
+    </svg>
+  ),
   awards: (
     <svg {...ICON_PROPS}>
       <circle cx="8" cy="6" r="4" />

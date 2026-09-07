@@ -230,17 +230,21 @@ export default function GraphEngine3D({
     if (!dimensions) return;
     const interval = setInterval(() => {
       const controls = fgRef.current?.controls() as
-        | { minDistance?: number; maxDistance?: number }
+        | { minDistance?: number; maxDistance?: number; mouseButtons?: { LEFT: THREE.MOUSE | null } }
         | undefined;
       if (!controls || controls.minDistance === undefined) return;
       controls.minDistance = 25;
       controls.maxDistance = 900;
+      // Plain drag moves through space (pan); OrbitControls' built-in
+      // modifier flip then makes shift/ctrl/cmd + drag rotate — the reverse
+      // of its default mapping, so travel is the primary gesture.
+      if (controls.mouseButtons) controls.mouseButtons.LEFT = THREE.MOUSE.PAN;
       clearInterval(interval);
     }, 30);
     return () => clearInterval(interval);
   }, [dimensions]);
 
-  // TEMPORARY: poll the live camera position/lookAt/FOV once a second so a
+  // TEMPORARY: poll the live camera position/lookAt/FOV four times a second so a
   // manually-orbited/zoomed view (not just node world position) can be read
   // back while hand-picking fixed camera framing per node. controls().target
   // is a live THREE.Vector3 that free-orbiting (drag/pan/zoom) updates in
@@ -263,7 +267,7 @@ export default function GraphEngine3D({
         fov: camera.fov,
         distance: camera.position.distanceTo(target),
       });
-    }, 1000);
+    }, 250);
     return () => clearInterval(interval);
   }, [onCameraDebugUpdate]);
 
@@ -571,6 +575,12 @@ export default function GraphEngine3D({
           height={dimensions.height}
           graphData={visibleGraphData}
           nodeId="id"
+          // Orbit (not the default trackball) so visitors can actually move
+          // through the space, not just circle one pivot. The controls-setup
+          // effect above remaps the left button to PAN: plain drag travels,
+          // shift/ctrl/cmd + drag rotates. Orbit also keeps the up-axis
+          // locked, which the aimAtSelected right-vector math benefits from.
+          controlType="orbit"
           nodeThreeObject={nodeThreeObject}
           linkColor={(link: FGLink) =>
             isEdgeFaded(selection, endpointId(link.source), endpointId(link.target))
