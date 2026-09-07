@@ -129,22 +129,6 @@ export const projectNodes: GraphNode[] = [
     images: ["/nodes/project-agent-reed-1.svg", "/nodes/project-agent-reed-2.svg"],
   },
   {
-    id: "project-adverse-media-screening-re-architecture",
-    layer: "professional",
-    category: "project",
-    label: "Adverse-Media Screening Re-Architecture",
-    description: "AML compliance system redesign at GoTyme Bank — details confidential under NDA.",
-    highlights: [
-      "Redesigned a 9-call-per-customer LLM screening pipeline into a hybrid single-search plus local Python classifier, cutting API calls ~89% and per-customer cost ~76% while reducing false positives ~76% and maintaining ~95% recall.",
-      "Client systems, internal data, and full implementation details withheld under NDA — described here at the same level of detail already disclosed publicly for this role.",
-    ],
-    meta: { stack: ["Python", "LLM orchestration", "AWS Bedrock"] },
-    images: [
-      "/nodes/project-adverse-media-screening-re-architecture-1.svg",
-      "/nodes/project-adverse-media-screening-re-architecture-2.svg",
-    ],
-  },
-  {
     id: "project-internal-automations",
     layer: "professional",
     category: "project",
@@ -152,15 +136,28 @@ export const projectNodes: GraphNode[] = [
     description:
       "The rest of my GoTyme Bank work — automating compliance workflows that used to be fully manual, and pressure-testing the architecture decisions behind them.",
     highlights: [
+      "Redesigned a 9-call-per-customer adverse-media screening pipeline into a hybrid single-search plus local Python classifier, cutting API calls ~89% and per-customer cost ~76% while reducing false positives ~76% and maintaining ~95% recall. Client systems, internal data, and full implementation details withheld under NDA — described here at the same level of detail already disclosed publicly for this role.",
       "Built an automated SAR-to-STR pipeline on Databricks that converts Suspicious Activity Reports into AMLC-formatted regulatory filings for BSP compliance — orchestrating Claude (via AWS Bedrock) for structured extraction, Unity Catalog lookups for enrichment, and SharePoint delivery, eliminating a fully manual analyst workflow.",
       "Engineered the pipeline for concurrency and auditability — isolating threading to I/O-bound work, consolidating Spark calls, and logging every case to a queryable results table for compliance review.",
       "Evaluated and ruled out alternative LLM backends (Gemini, LiteLLM proxy, Databricks serving) against concrete compliance and security constraints, documenting trade-offs to guide the architecture decision.",
     ],
-    meta: { stack: ["Databricks", "Apache Spark", "Claude via AWS Bedrock", "Unity Catalog"] },
+    meta: {
+      stack: ["Python", "LLM orchestration", "AWS Bedrock", "Databricks", "Apache Spark", "Unity Catalog"],
+    },
     images: [
       "/nodes/project-internal-automations-1.svg",
       "/nodes/project-internal-automations-2.svg",
     ],
+  },
+  {
+    id: "project-cashout",
+    layer: "professional",
+    category: "project",
+    label: "CashOut",
+    description:
+      "A Boot.dev hackathon project that turns a photo of a receipt into clean expense data. Images are denoised and contrast-enhanced (OpenCV, CLAHE, adaptive thresholding) before OCR ever touches them, then run through Google Cloud Vision's document text detection, then handed to an OpenAI model to normalize the mess into four clean fields — merchant, item, date, amount — exported as CSV. Usable for expense tracking, bookkeeping, or tax filing straight out of the box.",
+    meta: { stack: ["Python", "OpenCV", "Google Cloud Vision", "OpenAI", "Boot.dev"] },
+    images: ["/nodes/project-cashout-1.svg", "/nodes/project-cashout-2.svg"],
   },
   {
     id: "project-showtyme",
@@ -279,8 +276,8 @@ export const contentEdges: GraphEdge[] = [
   { source: "me", target: "project-iclinicsys", label: "built" },
   { source: "me", target: "project-stock-sage", label: "built" },
   { source: "me", target: "project-agent-reed", label: "built" },
-  { source: "me", target: "project-adverse-media-screening-re-architecture", label: "built" },
   { source: "me", target: "project-internal-automations", label: "built" },
+  { source: "me", target: "project-cashout", label: "built" },
   { source: "me", target: "project-showtyme", label: "built" },
   { source: "me", target: "project-portfolio-website", label: "built" },
 
@@ -317,11 +314,7 @@ export const contentEdges: GraphEdge[] = [
   ]),
   // projects → learning platforms
   { source: "project-agent-reed", target: "education-boot-dev", label: "coursework from" },
-  ...uses("project-adverse-media-screening-re-architecture", [
-    "skill-python",
-    "skill-llm-orchestration-agentic-ai",
-    "skill-aws-bedrock",
-  ]),
+  { source: "project-cashout", target: "education-boot-dev", label: "hackathon at" },
   ...uses("project-internal-automations", [
     "skill-python",
     "skill-databricks",
@@ -331,6 +324,7 @@ export const contentEdges: GraphEdge[] = [
     "skill-claude-api",
     "skill-llm-orchestration-agentic-ai",
   ]),
+  ...uses("project-cashout", ["skill-python"]),
   ...uses("project-showtyme", [
     "skill-diffusion-model-flux-lora-training",
     "skill-react",
@@ -360,7 +354,6 @@ export const contentEdges: GraphEdge[] = [
   ...uses("job-it-group-inc", ["skill-erp-oracle-netsuite", "skill-data-visualization"]),
 
   // cross-links: where projects happened
-  { source: "project-adverse-media-screening-re-architecture", target: "job-gotyme-bank", label: "built at" },
   { source: "project-internal-automations", target: "job-gotyme-bank", label: "built at" },
   { source: "project-showtyme", target: "job-gotyme-bank", label: "built at" },
   { source: "project-iclinicsys", target: "education-ateneo-de-manila-university", label: "thesis at" },

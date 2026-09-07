@@ -4,7 +4,7 @@ import { useRef, useEffect, useMemo, useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import * as THREE from "three";
-import { forceCollide } from "d3-force-3d";
+import { forceCollide, forceY, forceZ } from "d3-force-3d";
 import { useReducedMotion } from "motion/react";
 import type { ForceGraphProps, ForceGraphMethods } from "react-force-graph-3d";
 import type { Graph, GraphNode, GraphEdge } from "@/data/graph";
@@ -194,11 +194,14 @@ export default function GraphEngine3D({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [graph, selection.visibleNodeIds]);
 
-  // Spread nodes further apart than the library defaults so labels don't
-  // overlap and the graph reads bigger/more spacious once revealed. Collision
-  // force keeps label chips from stacking on top of each other, and the
-  // damped decay settings calm the chaotic fling the default physics has
-  // whenever new nodes are revealed.
+  // Tune the physics so the graph settles into a compact, oblong cloud
+  // instead of an even sprawl: moderate charge repulsion and short link
+  // distances keep nodes close; weak pull-to-zero forces on the y and z axes
+  // squash the cloud vertically and in depth (x stays free), so it reads as
+  // a wide ellipse rather than a loose sphere. Collision force keeps label
+  // chips from stacking on top of each other, and the damped decay settings
+  // calm the chaotic fling the default physics has whenever new nodes are
+  // revealed.
   useEffect(() => {
     if (!dimensions) return;
     const interval = setInterval(() => {
@@ -206,17 +209,38 @@ export default function GraphEngine3D({
       const chargeForce = fgRef.current.d3Force("charge") as unknown as
         | { strength: (v: number) => void }
         | undefined;
-      chargeForce?.strength(-220);
+      chargeForce?.strength(-120);
       const linkForce = fgRef.current.d3Force("link") as unknown as
         | { distance: (v: number) => void }
         | undefined;
-      linkForce?.distance(45);
-      fgRef.current.d3Force("collide", forceCollide(18));
+      linkForce?.distance(32);
+      fgRef.current.d3Force("collide", forceCollide(16));
+      fgRef.current.d3Force("squashY", forceY(0).strength(0.1));
+      fgRef.current.d3Force("squashZ", forceZ(0).strength(0.16));
       fgRef.current.d3ReheatSimulation();
       clearInterval(interval);
     }, 30);
     return () => clearInterval(interval);
   }, [dimensions]);
+
+  // Known harmless crash: dragging a node fires react-force-graph-3d's own
+  // DragControls, which competes with OrbitControls (remapped below to pan
+  // on left-drag) for the same pointer-up event. DragControls clears its
+  // internal pointer state first, then OrbitControls.onPointerUp reaches
+  // for that already-cleared state and throws "Cannot read properties of
+  // undefined (reading 'x')". Doesn't affect drag/pan behavior — verified
+  // interactively — just surfaces as a scary-looking overlay in dev. Swallow
+  // only this exact signature so any other runtime error still surfaces.
+  useEffect(() => {
+    const handleError = (e: ErrorEvent) => {
+      const stack = e.error?.stack ?? "";
+      if (e.message.includes("reading 'x'") && stack.includes("OrbitControls")) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener("error", handleError);
+    return () => window.removeEventListener("error", handleError);
+  }, []);
 
   // Clamp zoom so visitors can't push the camera inside a node mesh (too
   // close) or scroll out until the graph shrinks to an indistinct dot (too

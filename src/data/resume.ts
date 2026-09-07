@@ -65,12 +65,12 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "Adverse-Media Screening Re-Architecture",
-    description: "AML compliance system redesign at GoTyme Bank — details confidential under NDA",
-    stack: "Python, LLM orchestration, AWS Bedrock",
+    name: "CashOut",
+    description: "Receipt-to-CSV expense extraction, built for a Boot.dev hackathon",
+    stack: "Python, OpenCV, Google Cloud Vision, OpenAI",
     highlights: [
-      "Redesigned a 9-call-per-customer LLM screening pipeline into a hybrid single-search plus local Python classifier, cutting API calls ~89% and per-customer cost ~76% while reducing false positives ~76% and maintaining ~95% recall.",
-      "Client systems, internal data, and full implementation details withheld under NDA — described here at the same level of detail already disclosed publicly for this role.",
+      "Denoises and contrast-enhances receipt photos (OpenCV, CLAHE, adaptive thresholding) before OCR, runs them through Google Cloud Vision's document text detection, then uses an OpenAI model to normalize the result into four clean fields — merchant, item, date, amount — exported as CSV.",
+      "Usable for expense tracking, bookkeeping, or tax filing straight out of the box.",
     ],
   },
   {
