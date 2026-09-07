@@ -18,6 +18,7 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://darrelong.com"),
   title: "Darrel Ethan Ong — AI Engineer",
   description:
     "Portfolio of Darrel Ethan Ong, an AI engineer building production GenAI systems, agentic pipelines, and cloud data architecture.",
