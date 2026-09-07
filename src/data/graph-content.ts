@@ -115,7 +115,7 @@ export const projectNodes: GraphNode[] = [
       "Real-time web dashboard (server-rendered Go templates, WebSocket event streaming, JSON API) plus a CLI suite for experiment comparison (Sharpe, win rate, max drawdown), with YAML-overlay experiment configs for A/B testing strategy parameters.",
     ],
     meta: { stack: ["Go", "Alpaca API", "SQLite", "WebSockets", "Multi-provider LLM"] },
-    images: ["/nodes/project-stock-sage-1.svg", "/nodes/project-stock-sage-2.svg"],
+    images: ["/photos/Stock_sage.png"],
   },
   {
     id: "project-agent-reed",
@@ -126,7 +126,7 @@ export const projectNodes: GraphNode[] = [
       "A command-line coding agent in the spirit of Claude Code, built from scratch in Python on Gemini. REED reads a codebase, plans changes, and carries them out through a tool-use loop — listing and reading files, writing edits, and executing Python — demonstrating the full agentic pattern end to end: structured tool schemas, iterative plan-act-observe cycles, and guardrails around what the agent is allowed to touch and run. Recognized as an Outstanding Coursework Project.",
     meta: { recognition: "Outstanding Coursework Project", stack: ["Python", "Gemini", "Boot.dev"] },
     link: "https://github.com/Dabrel25/Agent_REED",
-    images: ["/nodes/project-agent-reed-1.svg", "/nodes/project-agent-reed-2.svg"],
+    images: ["/photos/Agent_REED_photo.png"],
   },
   {
     id: "project-internal-automations",
@@ -144,10 +144,7 @@ export const projectNodes: GraphNode[] = [
     meta: {
       stack: ["Python", "LLM orchestration", "AWS Bedrock", "Databricks", "Apache Spark", "Unity Catalog"],
     },
-    images: [
-      "/nodes/project-internal-automations-1.svg",
-      "/nodes/project-internal-automations-2.svg",
-    ],
+    images: ["/photos/internal-automation.jpeg"],
   },
   {
     id: "project-cashout",
@@ -157,7 +154,7 @@ export const projectNodes: GraphNode[] = [
     description:
       "A Boot.dev hackathon project that turns a photo of a receipt into clean expense data. Images are denoised and contrast-enhanced (OpenCV, CLAHE, adaptive thresholding) before OCR ever touches them, then run through Google Cloud Vision's document text detection, then handed to an OpenAI model to normalize the mess into four clean fields — merchant, item, date, amount — exported as CSV. Usable for expense tracking, bookkeeping, or tax filing straight out of the box.",
     meta: { stack: ["Python", "OpenCV", "Google Cloud Vision", "OpenAI", "Boot.dev"] },
-    images: ["/nodes/project-cashout-1.svg", "/nodes/project-cashout-2.svg"],
+    images: ["/photos/CashOut.png"],
   },
   {
     id: "project-showtyme",
@@ -172,7 +169,7 @@ export const projectNodes: GraphNode[] = [
       "Shipped inpainting/mask-based image editing, AI-assisted poster design with automated copywriting, a timeline-based video editor with undo/redo, and a node-graph visual pipeline builder.",
     ],
     meta: { stack: ["React", "TypeScript", "Serverless", "FLUX LoRA"] },
-    images: ["/nodes/project-showtyme-1.svg", "/nodes/project-showtyme-2.svg"],
+    images: ["/photos/showtyme-logo.png", "/photos/showtyme-studio-2.png"],
   },
   {
     id: "project-portfolio-website",
@@ -182,7 +179,7 @@ export const projectNodes: GraphNode[] = [
     description:
       "The site you're on right now — a personal knowledge graph. Instead of a static page, my work, education, and life are rendered as an explorable 3D graph (Next.js, React, Three.js) with physics-driven layout and choreographed camera framing. A Claude-powered chat guide (LangChain) answers questions about me, grounded in this same graph data, and navigates the graph to whatever it's talking about. Designed and built end to end.",
     meta: { stack: ["Next.js", "React", "TypeScript", "Three.js", "LangChain", "Claude API", "Vercel"] },
-    images: ["/nodes/project-portfolio-website-1.svg", "/nodes/project-portfolio-website-2.svg"],
+    images: ["/photos/Portfolio_Website.png"],
   },
 ];
 
