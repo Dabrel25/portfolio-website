@@ -32,9 +32,9 @@ const GRAPH_ACTIVE_THRESHOLD = 0.98;
 export default function LandingExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const [graphActive, setGraphActive] = useState(false);
   const searchParams = useSearchParams();
   const startOnGraph = searchParams.get("graph") === "1";
+  const [graphActive, setGraphActive] = useState(startOnGraph);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -49,13 +49,14 @@ export default function LandingExperience() {
   const [returning, setReturning] = useState(false);
 
   // Coming back from the resume page's "Graph" link should land directly on
-  // the graph, not replay the hero scroll intro from the top.
+  // the graph, not replay the hero scroll intro from the top. graphActive and
+  // latched are initialized from startOnGraph above (no effect needed for
+  // those); scroll position is a real side effect, so it alone still runs
+  // post-mount, gated on the ref existing rather than re-reading startOnGraph.
   useEffect(() => {
-    if (!startOnGraph) return;
-    window.scrollTo(0, 0);
-    setGraphActive(true);
-    setLatched(true);
-  }, [startOnGraph]);
+    if (startOnGraph) window.scrollTo(0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount only
+  }, []);
 
   const latchToGraph = () => {
     setGraphActive(true);

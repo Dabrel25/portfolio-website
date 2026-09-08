@@ -26,6 +26,10 @@ const CENTERED_WIDTH = 780;
 const INVITE_TYPING_HEIGHT = 130;
 const INVITE_HEIGHT = 240;
 const CARD_HEIGHT = 320;
+// Overview pill (~130px) + two 36px icon bubbles + two 12px gaps — the top-
+// left chrome row's rendered width, used to keep it from overlapping the
+// docked chat panel (see the row's left-clamping style below).
+const CHROME_ROW_WIDTH = 130 + 36 + 36 + 12 + 12;
 const ENTRANCE_SETTLE_MS = 1000;
 // Ring-to-ring delay for the invite headline's slow center-outward "wipe"
 // reveal — deliberately slow per the user's explicit "SLOWLY" ask, distinct
@@ -332,7 +336,23 @@ export default function GraphView({ active = true }: { active?: boolean }) {
         <div
           className={`transition-opacity duration-500 ${chromeVisible ? "opacity-100" : "pointer-events-none opacity-0"}`}
         >
-          <div className="absolute top-6 left-6 z-20 flex items-start gap-3">
+          {/* Left-anchored at 24px as before, but clamped so it can never
+              sit under the dock: at a plain left-6 inside a graph pane that
+              shrinks to viewport.width - dockWidth, a wide dock (or a
+              narrow viewport) left this row fighting the chat panel for the
+              same sliver of space, so the two overlapped. Capping left at
+              (graph pane width - row width) keeps the row fully inside the
+              pane and butted against the dock's edge once space gets tight,
+              instead of overflowing into it. */}
+          <div
+            className={`absolute top-6 z-20 flex items-start gap-3 ${isResizingDock ? "" : "transition-[left] duration-300"}`}
+            style={{
+              left: Math.min(
+                24,
+                (docked && chatOpen ? viewport.width - dockWidth : viewport.width) - CHROME_ROW_WIDTH
+              ),
+            }}
+          >
             <button
               onClick={handleOverviewClick}
               className="rounded-full border border-[#e5e3d8] bg-white/80 px-4 py-2 font-mono text-xs uppercase text-[#6b6a62] backdrop-blur hover:text-[#1f1e1b]"
